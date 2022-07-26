@@ -18,7 +18,7 @@ app.get("/", (req, res) => {
   res.send("we are on home");
 });
 
-mongoose.connect("mongodb+srv://jordy:belajar@cluster0.zgsni.mongodb.net/?retryWrites=true&w=majority", () => console.log("connected"));
+mongoose.connect(process.env.DB_CONNECTION, () => console.log("connected"));
 // console.log(process.env.DB_CONNECTION)
 
 app.listen(process.env.PORT||3000);
