@@ -12,6 +12,37 @@ router.get("/", async (req, res) => {
   }
 });
 
+//search news
+router.get("/news/search", async (req, res) => {
+  try {
+    const posts = await Post.find({},{title:1});
+    res.json(posts);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+//home datas
+router.get("/news", async (req, res) => {
+  try {
+    const posts = await Post.find({},{title:1,image:1,timePosted:1});
+    res.json(posts);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+//1 home datas with content id
+router.get("/news/:postID", async (req, res) => {
+  try {
+    const posts = await Post.find({_id:req.params.postID},{title:1,image:1,timePosted:1,content:1});
+    res.json(posts);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+
 //get spesific post by id
 router.get("/:postID", getData, (req, res) => {
     res.json(res.posts);
@@ -26,6 +57,7 @@ router.delete("/:postID", getData, async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 });
+
 
 //update post by id
 router.patch("/:postID", getData, async (req, res) => {
