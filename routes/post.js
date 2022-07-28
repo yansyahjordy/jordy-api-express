@@ -15,7 +15,7 @@ router.get("/", async (req, res) => {
 //search news
 router.get("/news/search", async (req, res) => {
   try {
-    const posts = await Post.find({},{title:1});
+    const posts = await Post.find({}, { title: 1 });
     res.json(posts);
   } catch (err) {
     res.status(500).json({ message: err.message });
@@ -25,7 +25,7 @@ router.get("/news/search", async (req, res) => {
 //home datas
 router.get("/news", async (req, res) => {
   try {
-    const posts = await Post.find({},{title:1,image:1,timePosted:1});
+    const posts = await Post.find({}, { title: 1, image: 1, timePosted: 1 });
     res.json(posts);
   } catch (err) {
     res.status(500).json({ message: err.message });
@@ -35,49 +35,49 @@ router.get("/news", async (req, res) => {
 //1 home datas with content id
 router.get("/news/:postID", async (req, res) => {
   try {
-    const posts = await Post.find({_id:req.params.postID},{title:1,image:1,timePosted:1,content:1});
+    const posts = await Post.find(
+      { _id: req.params.postID },
+      { title: 1, image: 1, timePosted: 1, content: 1, author: 1, tags: 1 }
+    );
     res.json(posts);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
 });
 
-
 //get spesific post by id
 router.get("/:postID", getData, (req, res) => {
-    res.json(res.posts);
+  res.json(res.posts);
 });
 
 //delete post by id
 router.delete("/:postID", getData, async (req, res) => {
   try {
-     await res.post.remove();
-    res.json({message:"Deleted News"});
+    await res.post.remove();
+    res.json({ message: "Deleted News" });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
 });
 
-
 //update post by id
 router.patch("/:postID", getData, async (req, res) => {
- if(req.body.title != null){
-    res.post.title = req.body.title
- }
- if(req.body.image != null){
-    res.post.image = req.body.image
- }
- if (req.body.timePosted != null){
-    res.post.timePosted = req.body.timePosted
- }
+  if (req.body.title != null) {
+    res.post.title = req.body.title;
+  }
+  if (req.body.image != null) {
+    res.post.image = req.body.image;
+  }
+  if (req.body.timePosted != null) {
+    res.post.timePosted = req.body.timePosted;
+  }
 
- try{
-    const updatedPost = await res.post.save()
-    res.json(updatedPost)
- }catch(err){
-    res.status(400).json({message:err.message})
- }
-    
+  try {
+    const updatedPost = await res.post.save();
+    res.json(updatedPost);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
 });
 
 //post new data
@@ -106,8 +106,8 @@ async function getData(req, res, next) {
   } catch (err) {
     return res.status(500).json({ message: err.message });
   }
-  res.post = post
-  next()
+  res.post = post;
+  next();
 }
 
 module.exports = router;
