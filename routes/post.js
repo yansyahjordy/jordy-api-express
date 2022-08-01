@@ -25,7 +25,7 @@ router.get("/news/search", async (req, res) => {
 //home datas
 router.get("/news", async (req, res) => {
   try {
-    const posts = await Post.find({}, { title: 1, image: 1, timePosted: 1 });
+    const posts = await Post.find({}, { title: 1, image: 1, timePosted: 1, author:1});
     res.json(posts);
   } catch (err) {
     res.status(500).json({ message: err.message });
