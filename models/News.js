@@ -1,11 +1,11 @@
 const mongoose =require("mongoose");
 
 const PostSchema = mongoose.Schema({
-    source:Object,
     author:String,
     description:String,
     url:String,
     content:String,
+    tags:Array,
     title:{
         type:String,
         required: true

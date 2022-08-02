@@ -62,14 +62,29 @@ router.delete("/:postID", getData, async (req, res) => {
 
 //update post by id
 router.patch("/:postID", getData, async (req, res) => {
-  if (req.body.title != null) {
+  if (req.body.title != null && req.body.title != "") {
     res.post.title = req.body.title;
   }
-  if (req.body.image != null) {
+  if (req.body.image != null && req.body.image != "") {
     res.post.image = req.body.image;
   }
-  if (req.body.timePosted != null) {
+  if (req.body.timePosted != null && req.body.timePosted != "") {
     res.post.timePosted = req.body.timePosted;
+  }
+  if (req.body.author != null && req.body.author != "") {
+    res.post.author = req.body.author;
+  }
+  if (req.body.description != null && req.body.description != "") {
+    res.post.description = req.body.description;
+  }
+  if (req.body.url != null && req.body.url != "") {
+    res.post.url = req.body.url;
+  }
+  if (req.body.content != null && req.body.content != "") {
+    res.post.content = req.body.content;
+  }
+  if (req.body.tags != null && req.body.tags != "") {
+    res.post.tags = req.body.tags;
   }
 
   try {
@@ -86,6 +101,10 @@ router.post("/", async (req, res) => {
     title: req.body.title,
     image: req.body.image,
     timePosted: req.body.timePosted,
+    author: req.body.author,
+    description: req.body.description,
+    url:req.body.url,
+    content:req.body.content,
   });
   try {
     const savedPost = await post.save();
